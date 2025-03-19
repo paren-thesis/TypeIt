@@ -1,0 +1,23 @@
+{
+  "easy": [
+    "The quick brown fox jumps over the lazy dog.",
+    "My name is John and I like to program computers.",
+    "Today is a beautiful day to learn typing skills.",
+    "She sells seashells by the seashore.",
+    "How much wood would a woodchuck chuck if a woodchuck could chuck wood?"
+  ],
+  "medium": [
+    "The five boxing wizards jump quickly. The early morning rays filtered through the dusty window panes as the ancient typewriter awaited another day of creativity.",
+    "JavaScript is a programming language that enables interactive web pages. It is an essential part of web applications.",
+    "Artificial intelligence will transform many industries in the coming decades, from healthcare to transportation.",
+    "The atmospheric rivers brought much-needed precipitation to the drought-stricken regions, revitalizing the ecosystem.",
+    "Quantum computers use quantum bits, or qubits, which can represent both 0 and 1 simultaneously through superposition."
+  ],
+  "hard": [
+    "The anthropomorphic characteristics of the extraterrestrial beings depicted in contemporary science fiction often reflect humanity's existential anxieties rather than plausible evolutionary paths.",
+    "The synchronization of cryptocurrency mining algorithms necessitates extraordinary computational power, consequently escalating electricity consumption to environmentally problematic levels.",
+    "The phenomenological approach to understanding consciousness requires bracketing preconceived notions about the nature of reality, thereby enabling a more direct apprehension of experience.",
+    "Immunohistochemistry techniques facilitate the visualization of specific cellular components through antigen-antibody interactions, revolutionizing pathological diagnostics.",
+    "The juxtaposition of quantum mechanics with general relativity presents irreconcilable mathematical inconsistencies that have prompted theoretical physicists to pursue string theory and loop quantum gravity as potential unified theories."
+  ]
+} 

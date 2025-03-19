@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TypeIt - Typing Game</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="dark-theme">
+    <div class="container">
+        <h1 class="title">TypeIt <i class="fas fa-keyboard"></i></h1>
+        
+        <div class="game-container">
+            <div class="stats">
+                <div class="stat">
+                    <span><i class="fas fa-layer-group"></i> Level:</span>
+                    <span id="level">1</span>
+                </div>
+                <div class="stat">
+                    <span><i class="fas fa-clock"></i> Time:</span>
+                    <span id="time">60</span>s
+                </div>
+                <div class="stat">
+                    <span><i class="fas fa-star"></i> Score:</span>
+                    <span id="score">0</span>
+                </div>
+                <div class="stat">
+                    <span><i class="fas fa-bullseye"></i> Accuracy:</span>
+                    <span id="accuracy">0</span>%
+                </div>
+                <div class="stat">
+                    <span><i class="fas fa-tachometer-alt"></i> WPM:</span>
+                    <span id="wpm">0</span>
+                </div>
+            </div>
+            
+            <div id="game-screen" class="game-screen">
+                <div id="start-screen" class="screen active">
+                    <h2><i class="fas fa-terminal"></i> Welcome to TypeIt</h2>
+                    <p>Test and improve your typing skills</p>
+                    <div class="matrix-effect">
+                        <pre id="matrix-text">
+01001000 01100101 01101100 01101100 01101111
+01010100 01111001 01110000 01101001 01101110 01100111
+01010111 01101111 01110010 01101100 01100100
+                        </pre>
+                    </div>
+                    <div class="btn-container">
+                        <button id="start-btn" class="btn"><i class="fas fa-play"></i> Start Game</button>
+                        <button id="settings-btn" class="btn"><i class="fas fa-cog"></i> Settings</button>
+                    </div>
+                </div>
+                
+                <div id="game-area" class="screen">
+                    <div class="game-controls">
+                        <button id="pause-btn" class="btn btn-circle"><i class="fas fa-pause"></i></button>
+                        <button id="restart-btn" class="btn btn-circle"><i class="fas fa-redo"></i></button>
+                    </div>
+                    <div id="text-display" class="text-display"></div>
+                    <input type="text" id="input-field" class="input-field" autocomplete="off" placeholder="Type here...">
+                </div>
+                
+                <div id="pause-screen" class="screen">
+                    <h2><i class="fas fa-pause"></i> Game Paused</h2>
+                    <div class="btn-container">
+                        <button id="resume-btn" class="btn"><i class="fas fa-play"></i> Resume</button>
+                        <button id="quit-btn" class="btn"><i class="fas fa-times"></i> Quit</button>
+                    </div>
+                </div>
+                
+                <div id="result-screen" class="screen">
+                    <h2><i class="fas fa-chart-line"></i> Results</h2>
+                    <div class="result-stats">
+                        <p><i class="fas fa-tachometer-alt"></i> WPM: <span id="result-wpm"></span></p>
+                        <p><i class="fas fa-bullseye"></i> Accuracy: <span id="result-accuracy"></span>%</p>
+                        <p><i class="fas fa-star"></i> Score: <span id="result-score"></span></p>
+                        <p><i class="fas fa-layer-group"></i> Level Reached: <span id="result-level"></span></p>
+                    </div>
+                    <div class="btn-container">
+                        <button id="retry-btn" class="btn"><i class="fas fa-redo"></i> Try Again</button>
+                        <button id="next-level-btn" class="btn"><i class="fas fa-forward"></i> Next Level</button>
+                    </div>
+                </div>
+                
+                <div id="settings-screen" class="screen">
+                    <h2><i class="fas fa-cog"></i> Settings</h2>
+                    <div class="setting-group">
+                        <label for="difficulty"><i class="fas fa-chart-bar"></i> Difficulty:</label>
+                        <select id="difficulty">
+                            <option value="easy">Easy</option>
+                            <option value="medium" selected>Medium</option>
+                            <option value="hard">Hard</option>
+                        </select>
+                    </div>
+                    <div class="setting-group">
+                        <label for="time-limit"><i class="fas fa-hourglass-half"></i> Time Limit (seconds):</label>
+                        <input type="number" id="time-limit" min="15" max="300" value="60">
+                    </div>
+                    <div class="setting-group">
+                        <label for="custom-text"><i class="fas fa-edit"></i> Custom Text:</label>
+                        <textarea id="custom-text" placeholder="Enter your own text here..."></textarea>
+                    </div>
+                    <div class="setting-group">
+                        <label><i class="fas fa-volume-up"></i> Sound Effects:</label>
+                        <div class="checkbox-container">
+                            <input type="checkbox" id="sound-enabled" checked>
+                            <label for="sound-enabled">Enable sound effects</label>
+                        </div>
+                    </div>
+                    <div class="setting-group">
+                        <label for="theme"><i class="fas fa-palette"></i> Theme:</label>
+                        <select id="theme">
+                            <option value="light">Light</option>
+                            <option value="dark" selected>Dark</option>
+                            <option value="blue">Blue</option>
+                            <option value="matrix">Matrix</option>
+                        </select>
+                    </div>
+                    <div class="btn-container">
+                        <button id="save-settings-btn" class="btn"><i class="fas fa-save"></i> Save Settings</button>
+                        <button id="back-btn" class="btn"><i class="fas fa-arrow-left"></i> Back</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <footer class="footer">
+        <p><i class="fas fa-code"></i> Made for nerdy typists <i class="fas fa-heart"></i></p>
+    </footer>
+    
+    <!-- Audio elements for sound effects -->
+    <audio id="keystroke-sound" preload="auto">
+        <source src="sounds/keystroke.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="error-sound" preload="auto">
+        <source src="sounds/error.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="level-up-sound" preload="auto">
+        <source src="sounds/level-up.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="game-over-sound" preload="auto">
+        <source src="sounds/game-over.mp3" type="audio/mpeg">
+    </audio>
+    
+    <script src="script.js"></script>
+</body>
+</html> 
