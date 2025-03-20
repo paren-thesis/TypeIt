@@ -413,7 +413,7 @@ function endGame() {
     isGameActive = false;
     
     // Play game over sound
-    playSound(gameOverSound);
+    // playSound(gameOverSound);
     
     // Update result screen
     resultWpmElement.textContent = wpmElement.textContent;
