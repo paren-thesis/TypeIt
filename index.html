@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body class="dark-theme">
+    <div class="overlay"></div>
     <div class="container">
         <h1 class="title">TypeIt <i class="fas fa-keyboard"></i></h1>
         
@@ -18,9 +19,10 @@
                     <span><i class="fas fa-layer-group"></i> Level:</span>
                     <span id="level">1</span>
                 </div>
-                <div class="stat">
+                <div class="stat timer-display">
                     <span><i class="fas fa-clock"></i> Time:</span>
-                    <span id="time">60</span>s
+                    <span id="time">60</span><span id="time-unit">s</span>
+                    <button id="toggle-time-format" class="btn-small" title="Toggle time format"><i class="fas fa-exchange-alt"></i></button>
                 </div>
                 <div class="stat">
                     <span><i class="fas fa-star"></i> Score:</span>

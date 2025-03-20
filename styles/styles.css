@@ -119,6 +119,42 @@ body::before {
     display: flex;
 }
 
+/* Settings screen as popover */
+#settings-screen.active {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    max-width: 500px;
+    max-height: 80vh;
+    height: auto;
+    z-index: 1000;
+    background-color: var(--container-color);
+    border-radius: 10px;
+    border: 1px solid rgba(0, 255, 65, 0.3);
+    box-shadow: 0 0 20px rgba(0, 255, 65, 0.5);
+    overflow-y: auto;
+    padding: 2rem;
+}
+
+/* Overlay for dimming background when settings is active */
+.overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 999;
+    backdrop-filter: blur(3px);
+}
+
+.overlay.active {
+    display: block;
+}
+
 .text-display {
     background-color: rgba(0, 0, 0, 0.5);
     border-radius: 5px;
@@ -133,6 +169,7 @@ body::before {
     border: 1px solid rgba(0, 255, 65, 0.3);
     box-shadow: 0 0 10px rgba(0, 255, 65, 0.1) inset;
     color: #ccc;
+    position: relative;
 }
 
 .text-display .current {

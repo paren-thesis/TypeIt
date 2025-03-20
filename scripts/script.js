@@ -16,10 +16,12 @@ const retryBtn = document.getElementById('retry-btn');
 const nextLevelBtn = document.getElementById('next-level-btn');
 const saveSettingsBtn = document.getElementById('save-settings-btn');
 const backBtn = document.getElementById('back-btn');
+const toggleTimeFormatBtn = document.getElementById('toggle-time-format');
 
 // Stats Elements
 const levelElement = document.getElementById('level');
 const timeElement = document.getElementById('time');
+const timeUnitElement = document.getElementById('time-unit');
 const scoreElement = document.getElementById('score');
 const accuracyElement = document.getElementById('accuracy');
 const wpmElement = document.getElementById('wpm');
@@ -59,6 +61,7 @@ let pauseStartTime;
 let elapsedTimePaused = 0;
 let texts = {};
 let currentTexts = [];
+let isTimeInSeconds = true;
 
 // Settings
 let settings = {
@@ -204,6 +207,11 @@ function showScreen(screen) {
     pauseScreen.classList.remove('active');
     
     screen.classList.add('active');
+    if (screen === settingsScreen) {
+        document.querySelector('.overlay').classList.add('active');
+    } else {
+        document.querySelector('.overlay').classList.remove('active');
+    }
 }
 
 // Start game
@@ -215,6 +223,8 @@ function startGame() {
     timeLeft = settings.timeLimit;
     isPaused = false;
     elapsedTimePaused = 0;
+    isTimeInSeconds = true;
+    timeUnitElement.textContent = 's';
     
     updateStats();
     nextLevel();
@@ -259,13 +269,19 @@ function quitGame() {
     clearInterval(timerInterval);
     isGameActive = false;
     isPaused = false;
+    timeLeft = settings.timeLimit; // Reset timer to default
+    timeElement.textContent = timeLeft;
     showScreen(startScreen);
 }
 
 // Update the timer
 function updateTimer() {
     timeLeft--;
-    timeElement.textContent = timeLeft;
+    if (isTimeInSeconds) {
+        timeElement.textContent = timeLeft;
+    } else {
+        timeElement.textContent = (timeLeft / 60).toFixed(2);
+    }
     
     if (timeLeft <= 0) {
         endGame();
@@ -273,6 +289,18 @@ function updateTimer() {
     
     // Update WPM every second
     updateWPM();
+}
+
+// Toggle time format
+function toggleTimeFormat() {
+    isTimeInSeconds = !isTimeInSeconds;
+    if (isTimeInSeconds) {
+        timeUnitElement.textContent = 's';
+        timeElement.textContent = timeLeft;
+    } else {
+        timeUnitElement.textContent = 'm';
+        timeElement.textContent = (timeLeft / 60).toFixed(2);
+    }
 }
 
 // Generate text for the current level
@@ -318,6 +346,7 @@ function displayText(text) {
     });
     
     currentWordIndex = 0;
+    textDisplay.scrollTop = 0; // Reset scroll position
 }
 
 // Handle user input
@@ -352,6 +381,14 @@ function handleInput() {
     // If there are more characters to type, highlight the next one
     if (currentWordIndex < currentTextArray.length) {
         textSpans[currentWordIndex].classList.add('current');
+        // Scroll to make the current character visible
+        const currentChar = textSpans[currentWordIndex];
+        const offsetTop = currentChar.offsetTop;
+        const offsetHeight = currentChar.offsetHeight;
+        const displayHeight = textDisplay.clientHeight;
+        if (offsetTop + offsetHeight > textDisplay.scrollTop + displayHeight) {
+            textDisplay.scrollTop = offsetTop + offsetHeight - displayHeight;
+        }
     } else {
         // Completed the text
         inputField.value = '';
@@ -411,9 +448,11 @@ function nextLevel() {
 function endGame() {
     clearInterval(timerInterval);
     isGameActive = false;
+    timeLeft = settings.timeLimit; // Reset timer to default
+    timeElement.textContent = timeLeft;
     
     // Play game over sound
-    // playSound(gameOverSound);
+    playSound(gameOverSound);
     
     // Update result screen
     resultWpmElement.textContent = wpmElement.textContent;
@@ -441,6 +480,7 @@ retryBtn.addEventListener('click', startGame);
 nextLevelBtn.addEventListener('click', startGame);
 saveSettingsBtn.addEventListener('click', saveSettings);
 backBtn.addEventListener('click', () => showScreen(startScreen));
+toggleTimeFormatBtn.addEventListener('click', toggleTimeFormat);
 
 inputField.addEventListener('input', handleInput);
 
